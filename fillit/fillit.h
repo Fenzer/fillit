@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/29 11:25:42 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/29 12:02:00 by fepinson         ###   ########.fr       */
+/*   Created: 2019/01/29 21:26:55 by fepinson          #+#    #+#             */
+/*   Updated: 2019/01/30 17:06:54 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#ifndef FILLIT_H
+# define FILLIT_H
 
-int		main(int ac, char **av)
-{
-	if (ac == 2)
-	{
-	}
-	else
-		ft_putstr_fd("usage : fillit tetriminos_file", 2);
-}
+# include "../lib/libft.h"
+# include <fcntl.h>
+
+typedef struct	t_tetri {
+	char	coord[4][2];
+	char	order;
+}				s_tetri;
+
+char	*read_tetri(int fd);
+
+int		check_tetri(char **grid);
+
+#endif
