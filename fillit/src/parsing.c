@@ -6,21 +6,25 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/01/30 17:06:52 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/01/30 17:34:07 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#define READ_SIZE 21
 
 #include <fcntl.h>
 
 char	*read_tetri(int fd)
 {
-	static char c;
-	char *tetri = malloc(21);
+	char *tetri;
 
-	c = 'A';
-	read(fd ,tetri, 21);
-	tetri[20] = 0;
-	return (tetri);
+	tetri = (char *)malloc(READ_SIZE * sizeof(char));
+	if (read(fd ,tetri, READ_SIZE) != READ_SIZE)
+		return (NULL);
+	tetri[READ_SIZE - 1] = 0;
+	if (check_tetri(&tetri))
+		return (tetri);
+	return (NULL);
 }
 
 int		check_tetri(char **grid)
@@ -54,10 +58,9 @@ int		check_tetri(char **grid)
 
 int main(int ac, char **av)
 {
-	s_tetri tetri[26];
-	int fd = open(av[1], O_RDONLY);
-	char *str = read_tetri(fd);
+	t_tetri tetris[26];
+	int fd;
 
-	printf("%d\n", check_tetri(&str));
-	free(str);
+	fd = open(av[1], O_RDONLY);
+	
 }
