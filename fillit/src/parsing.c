@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/01/30 17:34:07 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/01/31 10:53:42 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 
 #include <fcntl.h>
 
-char	*read_tetri(int fd)
+int		readnload_tetri(int fd, t_tetri **tetri)
 {
-	char *tetri;
+	static char	c;
+	int			rt;
+	char	*str_tetri;
 
-	tetri = (char *)malloc(READ_SIZE * sizeof(char));
-	if (read(fd ,tetri, READ_SIZE) != READ_SIZE)
-		return (NULL);
+	c = 'A';
+	str_tetri = (char *)malloc(READ_SIZE * sizeof(char));
+	rt = read(fd, str_tetri, READ_SIZE);
+	if (!rt || rt != READ_SIZE);
+		return (!rt ? 0 : -1);
 	tetri[READ_SIZE - 1] = 0;
-	if (check_tetri(&tetri))
-		return (tetri);
-	return (NULL);
+	if (!check_tetri(&tetri))
+		return (-1);
+	get_coord(str_tetri, tetri);
+	(*tetri)->order = c++;
+	return (1);
 }
 
 int		check_tetri(char **grid)
@@ -54,13 +60,4 @@ int		check_tetri(char **grid)
 		}
 	}
 	return (pieces == 6 || pieces == 8 ? 1 : 0);
-}
-
-int main(int ac, char **av)
-{
-	t_tetri tetris[26];
-	int fd;
-
-	fd = open(av[1], O_RDONLY);
-	
 }
