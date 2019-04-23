@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 12:25:37 by liferrer          #+#    #+#             */
-/*   Updated: 2019/04/23 15:29:37 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:07:06 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,48 @@ void	move_tetris(int y, int x, t_tetri *tetris)
 		tetris->coord[i][1] += x;
 		i++;
 	}
+}
+
+int		get_max(t_tetri *tetri, int i, int xy)
+{
+	int max;
+	int j;
+
+	max = 0;
+	while (i >= 0)
+	{
+		j = -1;
+		while (++j < 4)
+			if (tetri->coord[j][xy] > max)
+				max = tetri->coord[j][xy];
+		i--;
+	}
+	return (max);
+}
+
+int		check_overlap(t_tetri *tetri1, t_tetri *tetri2)
+{
+	int j;
+
+	j = -1;
+	while (++j < 4)
+		if (tetri1->coord[j][0] == tetri2->coord[j][0]
+				&& tetri1->coord[j][1] == tetri2->coord[j][1])
+			return (1);
+	return (0);
+}
+
+int		find_overlap(t_tetri *tetri, int i)
+{
+	int	j;
+
+	while (i >= 0)
+	{
+		j = i - 1;
+		while (j >= 0)
+			if (check_overlap(tetri + i, tetri + j--))
+				return (i);
+		--i;
+	}
+	return (0);
 }
