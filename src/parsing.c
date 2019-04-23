@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coord_tetris.c                                     :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/30 16:55:23 by liferrer          #+#    #+#             */
-/*   Updated: 2019/01/31 16:39:57 by liferrer         ###   ########.fr       */
+/*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
+/*   Updated: 2019/04/19 18:05:21 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include "../fillit.h"
-#include <stdio.h>
 
-void	get_new_coord(int min_y, int min_x, t_tetri **tetris)
+void	normalize_coord(int min_y, int min_x, t_tetri **tetris)
 {
 	int i;
 
@@ -26,7 +26,7 @@ void	get_new_coord(int min_y, int min_x, t_tetri **tetris)
 	}
 }
 
-void	coord_tetris(char **str, t_tetri **tetris)
+void	get_coord(char **str, t_tetri **tetris)
 {
 	int i;
 	int j;
@@ -51,19 +51,44 @@ void	coord_tetris(char **str, t_tetri **tetris)
 		}
 		i++;
 	}
-	get_new_coord(min_y, min_x, tetris);
+	normalize_coord(min_y, min_x, tetris);
 }
 
-int	main(int ac, char **argv)
+int		read_load_tetri(int fd, t_tetri **tetri)
 {
-	char	*str;
-	int 	i;
-	t_tetri *tetris = malloc(sizeof(t_tetri));
+	static char	c;
+	int			rt;
+	char	*str_tetri;
 
-	i = -1;
-	str = ft_strdup(".##.\n..#.\n..#.\n....\n");
-	coord_tetris(&str, &tetris);
-	while (++i < 4)
-		printf("y = %d ; x = %d\n", tetris->coord[i][0], tetris->coord[i][1]);
-	return (0);
+	c = 'A';
+	str_tetri = (char *)malloc(READ_SIZE * sizeof(char));
+	rt = read(fd, str_tetri, READ_SIZE);
+	if (!rt || rt != READ_SIZE)
+		return (!rt ? 0 : -1);
+	tetri[READ_SIZE - 2] = 0;
+	if (!check_tetri(str_tetri))
+		return (-1);
+	get_coord(&str_tetri, tetri);
+	(*tetri)->order = c++;
+	return ((int) (c - 'A'));
+}
+
+int		check_tetri(char *s)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (s[i]
+			&& (s[i] == '.' || s[i] == '#' || (s[i] == '\n' && !((i + 1) % 5))))
+		if (s[i++] == '#')
+			j++;
+	if (!s[i] || j > 4)
+		return (0);
+	j = 0;
+	while ((j != 6 || j != 8) && i)
+		if (s[i--] == '#')
+			s[i] == '#' || (i > 4 && s[i - 4]) ? j += 2 : 0;
+	return (j == 6 || j == 8 ? 1 : 0);
 }
