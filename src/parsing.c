@@ -6,27 +6,27 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/04/19 18:05:21 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:36:58 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "../fillit.h"
 
-void	normalize_coord(int min_y, int min_x, t_tetri **tetris)
+void	normalize_coord(int min_y, int min_x, t_tetri *tetris)
 {
 	int i;
 
 	i = 0;
 	while (i < 4)
 	{
-		(*tetris)->coord[i][0] -= min_y;
-		(*tetris)->coord[i][1] -= min_x;
+		tetris->coord[i][0] -= min_y;
+		tetris->coord[i][1] -= min_x;
 		i++;
 	}
 }
 
-void	get_coord(char **str, t_tetri **tetris)
+void	get_coord(char **str, t_tetri *tetris)
 {
 	int i;
 	int j;
@@ -41,12 +41,12 @@ void	get_coord(char **str, t_tetri **tetris)
 	{
 		if ((*str)[i] == '#')
 		{
-			(*tetris)->coord[j][0] = i / 5;
-			(*tetris)->coord[j][1] = i < 5 ? i : i % 5;
-			if ((*tetris)->coord[j][0] < min_y)
-				min_y = (*tetris)->coord[j][0];
-			if ((*tetris)->coord[j][1] < min_x)
-				min_x = (*tetris)->coord[j][1];
+			tetris->coord[j][0] = i / 5;
+			tetris->coord[j][1] = i < 5 ? i : i % 5;
+			if (tetris->coord[j][0] < min_y)
+				min_y = tetris->coord[j][0];
+			if (tetris->coord[j][1] < min_x)
+				min_x = tetris->coord[j][1];
 			j++;
 		}
 		i++;
@@ -54,23 +54,23 @@ void	get_coord(char **str, t_tetri **tetris)
 	normalize_coord(min_y, min_x, tetris);
 }
 
-int		read_load_tetri(int fd, t_tetri **tetri)
+int		read_load_tetri(int fd, t_tetri *tetri, int i)
 {
-	static char	c;
 	int			rt;
-	char	*str_tetri;
+	char	str_tetri[READ_SIZE];
 
-	c = 'A';
-	str_tetri = (char *)malloc(READ_SIZE * sizeof(char));
 	rt = read(fd, str_tetri, READ_SIZE);
-	if (!rt || rt != READ_SIZE)
+	if (!rt || (rt != READ_SIZE && rt != READ_SIZE - 1))
 		return (!rt ? 0 : -1);
-	tetri[READ_SIZE - 2] = 0;
+	if (str_tetri[rt - 1] == '\n')
+		str_tetri[rt - 1] = 0;
+	else
+		return (-1);
 	if (!check_tetri(str_tetri))
 		return (-1);
 	get_coord(&str_tetri, tetri);
-	(*tetri)->order = c++;
-	return ((int) (c - 'A'));
+	tetri->order = (char)(i + 'A');
+	return (1);
 }
 
 int		check_tetri(char *s)
@@ -84,11 +84,12 @@ int		check_tetri(char *s)
 			&& (s[i] == '.' || s[i] == '#' || (s[i] == '\n' && !((i + 1) % 5))))
 		if (s[i++] == '#')
 			j++;
-	if (!s[i] || j > 4)
+	if (s[i] || j > 4)
 		return (0);
 	j = 0;
 	while ((j != 6 || j != 8) && i)
 		if (s[i--] == '#')
 			s[i] == '#' || (i > 4 && s[i - 4]) ? j += 2 : 0;
+	s[i] == '#' || (i > 4 && s[i - 4]) ? j += 2 : 0;
 	return (j == 6 || j == 8 ? 1 : 0);
 }

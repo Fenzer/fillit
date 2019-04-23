@@ -6,21 +6,21 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 12:25:37 by liferrer          #+#    #+#             */
-/*   Updated: 2019/02/04 12:26:38 by liferrer         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:29:37 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	move_tetris(int y, int x, t_tetri **tetris)
+void	move_tetris(int y, int x, t_tetri *tetris)
 {
 	int i;
 
 	i = 0;
 	while (i < 4)
 	{
-		(*tetris)->coord[i][0] += y;
-		(*tetris)->coord[i][1] += x;
+		tetris->coord[i][0] += y;
+		tetris->coord[i][1] += x;
 		i++;
 	}
 }
