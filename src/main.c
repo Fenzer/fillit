@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/23 18:41:47 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/24 03:02:19 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,10 @@ int	free_return(void *p, int i)
 	return (i);
 }
 
-int	solve(t_tetri *tetri, int i)
+int	solve(t_tetri *tetri, int i, int sz)
 {
-	int	x;
-	int	y;
-	int	sz;
-
-	sz = i;
-	x = 0;
-	y = 0;
-	while (i >= 0)
-	{
-		x += get_max(tetri + i, 0);
-		y += get_max(tetri + i, 1);
-		--i;
-	}
-	i = sz;
-	sz = x > y ? x : y;
-	while ((y = find_overlap(tetri, i)))
-	{
-		x = i + 1;
-		while (--x >= 0)
-			move_tetris(sztetri[x]);
-	}
+	if (find_overlap(tetri, i) && check_all_fit(tetri, i, sz))
+		
 }
 
 int	main(int argc, const char *argv[])
@@ -59,6 +40,6 @@ int	main(int argc, const char *argv[])
 			return (free_return((void *)tetri, 42));
 	if (i == 25 && read_load_tetri(fd, tetri + i, i))
 		return (free_return((void *)tetri, 42));
-	solve(tetri, i);
+	solve(tetri, i, 2);
 	return (free_return((void *)tetri, 0));
 }
