@@ -13,45 +13,55 @@
 #include <fcntl.h>
 #include "../fillit.h"
 
-void	normalize_coord(int min_y, int min_x, t_tetri *tetris)
+void	set_min_max(t_tetri *tetri)
 {
 	int i;
 
-	i = 0;
-	while (i < 4)
+	tetri->pt.x = 0;
+	tetri->pt.y = 0;
+	tetri->mx = tetri->coord[0];
+	tetri->mn = tetri->coord[0];
+	i = 4;
+	while (i--)
 	{
-		tetris->coord[i][0] -= min_y;
-		tetris->coord[i][1] -= min_x;
-		i++;
+		if (tetri->coord[i].x > tetri->mx.x)
+			tetri->mx.x = tetri->coord[i].x;
+		if (tetri->coord[i].y > tetri->mx.y)
+			tetri->mx.y = tetri->coord[i].y;
+		if (tetri->coord[i].x < tetri->mn.x)
+			tetri->mn.x = tetri->coord[i].x;
+		if (tetri->coord[i].y > tetri->mn.y)
+			tetri->mn.y = tetri->coord[i].y;
 	}
 }
 
-void	get_coord(char **str, t_tetri *tetris)
+void	get_coord(char *str, t_tetri *tetris)
 {
 	int i;
 	int j;
 	int	min_x;
 	int min_y;
 
-	i = 0;
-	j = 0;
+	i = -1;
+	j = -1;
 	min_x = 5;
 	min_y = 5;
-	while ((*str)[i])
+	while (str[++i])
 	{
-		if ((*str)[i] == '#')
+		if (str[i] == '#')
 		{
-			tetris->coord[j][0] = i / 5;
-			tetris->coord[j][1] = i < 5 ? i : i % 5;
-			if (tetris->coord[j][0] < min_y)
-				min_y = tetris->coord[j][0];
-			if (tetris->coord[j][1] < min_x)
-				min_x = tetris->coord[j][1];
-			j++;
+			tetris->coord[++j].y = i / 5;
+			tetris->coord[j].x = i < 5 ? i : i % 5;
+			if (tetris->coord[j].y < min_y)
+				min_y = tetris->coord[j].y;
+			if (tetris->coord[j].x < min_x)
+				min_x = tetris->coord[j].x;
 		}
-		i++;
 	}
-	normalize_coord(min_y, min_x, tetris);
+	while (j--)
+		tetris->coord[j].x -= min_x;
+	while (j < 4)
+		tetris->coord[j++].y -= min_y;
 }
 
 int		read_load_tetri(int fd, t_tetri *tetri, int i)
@@ -59,17 +69,18 @@ int		read_load_tetri(int fd, t_tetri *tetri, int i)
 	int			rt;
 	char	str_tetri[READ_SIZE];
 
-	rt = read(fd, str_tetri, READ_SIZE);
-	if (!rt || (rt != READ_SIZE && rt != READ_SIZE - 1))
-		return (!rt ? 0 : -1);
-	if (str_tetri[rt - 1] == '\n')
-		str_tetri[rt - 1] = 0;
+	i = read(fd, str_tetri, READ_SIZE);
+	if (!i || (rt != READ_SIZE && rt != READ_SIZE - 1))
+		return (!i ? 0 : -1);
+	if (str_tetri[i - 1] == '\n')
+		str_tetri[i - 1] = 0;
 	else
 		return (-1);
 	if (!check_tetri(str_tetri))
 		return (-1);
-	get_coord(&str_tetri, tetri);
+	get_coord(str_tetri, tetri);
 	tetri->order = (char)(i + 'A');
+	set_min_max(tetri);
 	return (1);
 }
 

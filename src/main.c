@@ -32,14 +32,32 @@ int		ft_sqrt(int n)
 	}
 }
 
-int		solve_square(t_tetri *tetri, int i, int size)
-{
+/*int		solve_square(t_tetri *tetri, int i, int size)*/
+/*{*/
+	/*int j;*/
+	/*int p[2];*/
+	/*int sqr[size][size];*/
 
-}
+	/*j = 0;*/
+	/*if (!check_fit(tetri + j))*/
+		/*return (0);*/
+	/*while (j < i)*/
+	/*{*/
+		/*if (check_fit(tetri + j, size))*/
+		/*{*/
+			/*get_next_pos(tetri + j, size, &p);*/
+			/*j++;*/
+		/*}*/
+		/*else*/
+	/*}*/
+/*}*/
 
-int	free_return(void *p, int i)
+int	free_msg_ret(void *p, int i, char *s)
 {
-	free(p);
+	if (s)
+		ft_putendl(s);
+	if (p)
+		free(p);
 	return (i);
 }
 
@@ -55,15 +73,15 @@ int	main(int argc, const char *argv[])
 	int		i;
 	int		j;
 
-	fd = open(argv[1], O_RDONLY);
 	if (!(tetri = (t_tetri *)ft_memalloc(sizeof(t_tetri) * 26)))
-		return (free_return((void *)tetri, 42));
+		return (free_msg_ret((void *)tetri, 42, "Error: Malloc failed."));
 	i = -1;
-	while (++i < 26 && (j = read_load_tetri(fd, tetri + i, i)))
+	while (++i < 26 && 
+		(j = read_load_tetri(fd = open(argv[1], O_RDONLY), tetri + i, i)))
 		if (j < 0)
-			return (free_return((void *)tetri, 42));
+			return (free_msg_ret((void *)tetri, 42, "Error: Parsing failed."));
 	if (i == 25 && read_load_tetri(fd, tetri + i, i))
-		return (free_return((void *)tetri, 42));
-	solve(tetri, i, ft_sqrt(i * 4));
-	return (free_return((void *)tetri, 0));
+		return (free_msg_ret((void *)tetri, 42, "Error: Parsing failed."));
+	/*solve(tetri, i, ft_sqrt(i * 4));*/
+	return (free_msg_ret((void *)tetri, 0, NULL));
 }

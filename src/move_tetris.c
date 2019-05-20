@@ -12,18 +12,18 @@
 
 #include "fillit.h"
 
-void	move_tetris(int y, int x, t_tetri *tetris)
-{
-	int	i;
+/*void	move_tetris(int y, int x, t_tetri *tetris)*/
+/*{*/
+	/*int	i;*/
 
-	i = 0;
-	while (i < 4)
-	{
-		tetris->coord[i][0] += y;
-		tetris->coord[i][1] += x;
-		i++;
-	}
-}
+	/*i = 0;*/
+	/*while (i < 4)*/
+	/*{*/
+		/*tetris->coord[i][0] += y;*/
+		/*tetris->coord[i][1] += x;*/
+		/*i++;*/
+	/*}*/
+/*}*/
 
 int		check_fit(t_tetri *tetri, int sz)
 {
@@ -31,7 +31,8 @@ int		check_fit(t_tetri *tetri, int sz)
 
 	j = -1;
 	while (++j < 4)
-		if (tetri->coord[j][0] > sz - 1 || tetri->coord[j][1] > sz - 1)
+		if (tetri->coord[j][0] + tetri->pos[0] > sz - 1
+			|| tetri->coord[j][1] + tetri->pos[1] > sz - 1)
 			return (0);
 	return (1);
 }
@@ -63,11 +64,17 @@ int		check_all_fit(t_tetri *tetri, int i, int sz)
 int		check_overlap(t_tetri *tetri1, t_tetri *tetri2)
 {
 	int j;
+	int p1[2];
+	int p2[2];
 
+	p1[0] = tetri1->pos[0];
+	p1[1] = tetri1->pos[1];
+	p2[0] = tetri2->pos[0];
+	p2[1] = tetri2->pos[1];
 	j = -1;
 	while (++j < 4)
-		if (tetri1->coord[j][0] == tetri2->coord[j][0]
-				&& tetri1->coord[j][1] == tetri2->coord[j][1])
+		if (tetri1->coord[j][0] + p1[0] == tetri2->coord[j][0] + p2[0]
+				&& tetri1->coord[j][1] + p1[1] == tetri2->coord[j][1] + p2[1])
 			return (1);
 	return (0);
 }
