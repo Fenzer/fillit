@@ -32,6 +32,21 @@ int		ft_sqrt(int n)
 	}
 }
 
+void	get_next_pos(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (++i < map->sz)
+		while (++j < map->sz)
+			if (map->mp[i][j] == '.')
+				break;
+	map->nxt.y = i;
+	map->nxt.x = j;
+}
+
 int		solve_map(t_tetri *tetri, int i, t_map *map)
 {
 	int j;
@@ -39,14 +54,20 @@ int		solve_map(t_tetri *tetri, int i, t_map *map)
 	j = 0;
 	if (!check_fit(tetri + j))
 		return (0);
-	while (j < i)
+	while (j != i)
 	{
-		if (check_fit(tetri + j, size))
+		if (check_fit(tetri + j, map->sz))
 		{
-			get_next_pos(tetri + j, size, &p);
+			get_next_pos(map);
 			j++;
 		}
 		else
+		{
+			place_tetri(tetri, map);
+			if (j == i)
+				return (1);
+			return (solve_map(++tetri, i, map));
+		}
 	}
 }
 
@@ -78,8 +99,12 @@ t_map	*init_map(int sz)
 	set_point(&map->nxt, 0, 0);
 	i = 0;
 	while (i < sz)
+	{
 		if (!(map->mp[i++] = (char *)ft_memalloc(sizeof(char *) * (sz + 1))))
 			return (NULL);
+		else
+			ft_memset((void *)map->mp[i], '.', sz);
+	}
 }
 
 int	solve(t_tetri *tetri, int i, int sz)
