@@ -32,41 +32,51 @@ int		ft_sqrt(int n)
 	}
 }
 
-void	get_next_pos(t_map *map)
+void	place_tetri(t_tetri *tetri, t_map *map, int mode)
+{
+	int i;
+
+	i = 4;
+	while (--i != -1)
+		mode ? map->mp[tetri->coord[i].y + tetri->pt.y]
+			[tetri->coord[i].x + tetri->pt.x] = tetri->order : '.';
+}
+int		get_next_pos(t_tetri *tetri, t_map *map)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	j = -1;
-	while (++i < map->sz)
-		while (++j < map->sz)
+	while (++i < map->sz - 1 && (j = -1))
+		while (++j < map->sz - 1)
 			if (map->mp[i][j] == '.')
-				break;
-	map->nxt.y = i;
-	map->nxt.x = j;
+				set_point(&map->nxt, j, i);
+	tetri->pt = map->nxt;
+	return (i != map->sz && j != map->sz ? check_fit(tetri, map) : 0);
 }
 
 int		solve_map(t_tetri *tetri, int i, t_map *map)
 {
-	int j;
+	int x;
+	int y;
 
-	j = 0;
-	if (!check_fit(tetri + j))
-		return (0);
-	while (j != i)
+	y = -1;
+	while (++y + tetri->mx.y < map->sz && x = -1)
 	{
-		if (check_fit(tetri + j, map->sz))
+		while (++x + tetri->mx.x < map->sz)
 		{
-			get_next_pos(map);
-			j++;
-		}
-		else
-		{
-			place_tetri(tetri, map);
-			if (j == i)
-				return (1);
-			return (solve_map(++tetri, i, map));
+			if (get_next_pos(map))
+			{
+				place_tetri(tetri, map, 1);
+				if (j == i)
+					return (1);
+				else
+					return (solve_map(++tetri, i, map));
+			}
+			else
+			{
+				place_tetri(tetri, map, 0);
+			}
 		}
 	}
 }
@@ -134,7 +144,7 @@ int	main(int argc, const char *argv[])
 		return (free_msg_ret((void *)tetri, 42, "Error: Malloc failed."));
 	i = -1;
 	while (++i < 26 && 
-		(j = read_load_tetri(fd = open(argv[1], O_RDONLY), tetri + i, i)))
+			(j = read_load_tetri(fd = open(argv[1], O_RDONLY), tetri + i, i)))
 		if (j < 0)
 			return (free_msg_ret((void *)tetri, 42, "Error: Parsing failed."));
 	if (i == 25 && read_load_tetri(fd, tetri + i, i))

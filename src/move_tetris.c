@@ -25,25 +25,20 @@
 	/*}*/
 /*}*/
 
-int		check_fit(t_tetri *tetri, int sz)
+int		check_fit(t_tetri *tetri, t_map *map)
 {
 	int	j;
+	int sz;
 
 	j = -1;
+	sz = map->sz - 1;
 	while (++j < 4)
-		if (tetri->coord[j][0] + tetri->pos[0] > sz - 1
-			|| tetri->coord[j][1] + tetri->pos[1] > sz - 1)
+		if (tetri->coord[j].x + tetri->pt.x > sz
+			|| tetri->coord[j].y + tetri->pt.y > sz)
 			return (0);
 	return (1);
 }
 
-int		check_all_fit(t_tetri *tetri, int i, int sz)
-{
-	while (--i >= 0)
-		if (!check_fit(tetri + i, sz))
-			return (0);
-	return (1);
-}
 /*int		get_max(t_tetri *tetri, int i, int xy)*/
 /*{*/
 	/*int max;*/
@@ -61,35 +56,35 @@ int		check_all_fit(t_tetri *tetri, int i, int sz)
 	/*return (max);*/
 /*}*/
 
-int		check_overlap(t_tetri *tetri1, t_tetri *tetri2)
-{
-	int j;
-	int p1[2];
-	int p2[2];
+/*int		check_overlap(t_tetri *tetri1, t_tetri *tetri2)*/
+/*{*/
+	/*int j;*/
+	/*int p1[2];*/
+	/*int p2[2];*/
 
-	p1[0] = tetri1->pos[0];
-	p1[1] = tetri1->pos[1];
-	p2[0] = tetri2->pos[0];
-	p2[1] = tetri2->pos[1];
-	j = -1;
-	while (++j < 4)
-		if (tetri1->coord[j][0] + p1[0] == tetri2->coord[j][0] + p2[0]
-				&& tetri1->coord[j][1] + p1[1] == tetri2->coord[j][1] + p2[1])
-			return (1);
-	return (0);
-}
+	/*p1[0] = tetri1->pos[0];*/
+	/*p1[1] = tetri1->pos[1];*/
+	/*p2[0] = tetri2->pos[0];*/
+	/*p2[1] = tetri2->pos[1];*/
+	/*j = -1;*/
+	/*while (++j < 4)*/
+		/*if (tetri1->coord[j][0] + p1[0] == tetri2->coord[j][0] + p2[0]*/
+				/*&& tetri1->coord[j][1] + p1[1] == tetri2->coord[j][1] + p2[1])*/
+			/*return (1);*/
+	/*return (0);*/
+/*}*/
 
-int		find_overlap(t_tetri *tetri, int i)
-{
-	int	j;
+/*int		find_overlap(t_tetri *tetri, int i)*/
+/*{*/
+	/*int	j;*/
 
-	while (i >= 0)
-	{
-		j = i - 1;
-		while (j >= 0)
-			if (check_overlap(tetri + i, tetri + j--))
-				return (i);
-		--i;
-	}
-	return (0);
-}
+	/*while (i >= 0)*/
+	/*{*/
+		/*j = i - 1;*/
+		/*while (j >= 0)*/
+			/*if (check_overlap(tetri + i, tetri + j--))*/
+				/*return (i);*/
+		/*--i;*/
+	/*}*/
+	/*return (0);*/
+/*}*/
