@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/24 14:30:23 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/08 09:31:58 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	place_tetri(t_tetri *tetri, t_map *map, int mode)
 		mode ? map->mp[tetri->coord[i].y + tetri->pt.y]
 			[tetri->coord[i].x + tetri->pt.x] = tetri->order : '.';
 }
+
 int		get_next_pos(t_tetri *tetri, t_map *map)
 {
 	int	i;
@@ -61,22 +62,17 @@ int		solve_map(t_tetri *tetri, int i, t_map *map)
 	int y;
 
 	y = -1;
-	while (++y + tetri->mx.y < map->sz && x = -1)
+	while (++y + tetri->mx.y < map->sz && (x = -1))
 	{
 		while (++x + tetri->mx.x < map->sz)
 		{
-			if (get_next_pos(map))
+			if (get_next_pos(map, tetri))
 			{
 				place_tetri(tetri, map, 1);
-				if (j == i)
-					return (1);
-				else
-					return (solve_map(++tetri, i, map));
+				return (solve_map(++tetri, i, map));
 			}
 			else
-			{
 				place_tetri(tetri, map, 0);
-			}
 		}
 	}
 }
