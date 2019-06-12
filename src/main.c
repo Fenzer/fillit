@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/08 09:31:58 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:20:38 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,16 @@ int		get_next_pos(t_tetri *tetri, t_map *map)
 		j = 0;
 		while (j < map->sz - 1)
 		{
-			if (map->mp[i][j] == '.')
-				set_point(&map->nxt, j, i);
+			if (map->mp[i][j] == '.' && check_fit(tetri, map))
+			{
+				set_point(&tetri->pt, j, i);
+				return (1);
+			}
 			++j;
 		}
 		++i;
 	}
-	tetri->pt = map->nxt;
-	if (i != map->sz && j != map->sz)
-		return (check_fit(tetri, map));
-	else 
-		return (0);
+	return (0);
 }
 
 int		solve_map(t_tetri *tetri, int i, t_map *map)
@@ -80,7 +79,9 @@ int		solve_map(t_tetri *tetri, int i, t_map *map)
 			if (get_next_pos(tetri, map))
 			{
 				place_tetri(tetri, map, 1);
-				if (solve_map(++tetri, i, map))
+				if (!i)
+					return (1);
+				if (i && solve_map(++tetri, --i, map))
 					return (1);
 				else
 					place_tetri(tetri, map, 0);
@@ -132,7 +133,6 @@ t_map	*init_map(int sz)
 	map->sz = sz;
 	if (!(map->mp = (char **)ft_memalloc(sizeof(char *) * (sz + 1))))
 		return (NULL);
-	set_point(&map->nxt, 0, 0);
 	i = 0;
 	while (i < sz)
 	{
@@ -169,24 +169,24 @@ int	main(int argc, const char *argv[])
 	char	**mp;
 	int		fd;
 	int		i;
-	int		j;
 
 	if (argc != 2)
 		return (free_msg_ret(NULL, 42, "Usage : fillit\t[FILE]"));
+	if ((fd = open(argv[1], O_RDONLY)) < 0)
+		return (free_msg_ret(NULL, 42, "Can't open file"));
 	if (!(tetri = (t_tetri *)ft_memalloc(sizeof(t_tetri) * 26)))
 		return (free_msg_ret((void *)tetri, 42, "Error: Malloc failed."));
-	i = -1;
-	while (++i < 26 && 
-			(j = read_load_tetri(fd = open(argv[1], O_RDONLY), tetri + i, i)))
-		if (j < 0)
-			return (free_msg_ret((void *)tetri, 42, "error"));
-	if (i == 25 && read_load_tetri(fd, tetri + i, i))
+	i = 0;
+	while (read_load_tetri(fd,  tetri + i, i))
+		++i;
+	if (--i > 26)
 		return (free_msg_ret((void *)tetri, 42, "error"));
-	if (!(mp = solve(tetri, i, ft_sqrt(i * 4))))
-		return (free_msg_ret((void *)tetri, 42, "error"));
+	if (!(mp = solve(tetri, i, ft_sqrt((i + 1) * 4))))
+		return (free_msg_ret((void *)tetri, 42, "Can't solve."));
 	i = -1;
 	while (mp[++i])
 		ft_putstr(mp[i]);
 	ft_freetab(mp);
+	close(fd);
 	return (free_msg_ret((void *)tetri, 0, NULL));
 }

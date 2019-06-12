@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 21:26:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/23 14:45:04 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:46:39 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ typedef struct	s_pt {
 typedef	struct	s_map {
 	int			sz;
 	char		**mp;
-	t_pt		nxt;
 }				t_map;
 
 typedef struct	s_tetri {
 	t_pt	pt;
 	t_pt	coord[4];
 	t_pt	mx;
-	t_pt	mn;
 	char	order;
 }				t_tetri;
 
