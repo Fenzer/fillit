@@ -95,7 +95,7 @@ SRCS		=	$(SRC_DIR)/ft_bzero.c			\
 				$(SRC_DIR)/ft_strssplit.c		\
 				$(SRC_DIR)/ft_itoa_base.c		\
 				$(SRC_DIR)/ft_itoa_cbase.c		\
-				$(SRC_DIR)/ft_get_next_line.c
+				#$(SRC_DIR)/ft_get_next_line.c
 
 OBJS		=	$(SRCS:.c=.o)
 

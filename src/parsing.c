@@ -69,7 +69,7 @@ int		read_load_tetri(int fd, t_tetri *tetri, int i)
 	int			rt;
 	char	str_tetri[READ_SIZE];
 
-	i = read(fd, str_tetri, READ_SIZE);
+	rt = read(fd, str_tetri, READ_SIZE);
 	if (!i || (rt != READ_SIZE && rt != READ_SIZE - 1))
 		return (!i ? 0 : -1);
 	if (str_tetri[i - 1] == '\n')

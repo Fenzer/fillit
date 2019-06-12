@@ -49,4 +49,10 @@ int		read_load_tetri(int fd, t_tetri *tetri, int i);
 
 void	get_coord(char *str, t_tetri *tetris);
 
+void	set_point(t_pt *pt, int x, int y);
+
+int		get_next_pos(t_tetri *tetri, t_map *map);
+
+int		check_fit(t_tetri *tetri, t_map *map);
+
 #endif

@@ -34,7 +34,9 @@ int		check_fit(t_tetri *tetri, t_map *map)
 	sz = map->sz - 1;
 	while (++j < 4)
 		if (tetri->coord[j].x + tetri->pt.x > sz
-			|| tetri->coord[j].y + tetri->pt.y > sz)
+			|| tetri->coord[j].y + tetri->pt.y > sz
+			|| map->mp[tetri->coord[j].y + tetri->pt.y]
+			[tetri->coord[j].x + tetri->pt.x] != '.')
 			return (0);
 	return (1);
 }
