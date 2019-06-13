@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/06/12 19:11:11 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/13 11:47:01 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int		read_load_tetri(int fd, t_tetri *tetri, int i)
 	int			rt;
 	char	str_tetri[READ_SIZE];
 
-	if (fd < 0)
-		return (0);
 	rt = read(fd, str_tetri, READ_SIZE);
 	if ((rt != READ_SIZE && rt != READ_SIZE - 1))
 		return (0);
