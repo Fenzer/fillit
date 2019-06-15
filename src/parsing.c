@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/06/13 11:47:01 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/15 17:23:50 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,16 @@ int		read_load_tetri(int fd, t_tetri *tetri, int i)
 	char	str_tetri[READ_SIZE];
 
 	rt = read(fd, str_tetri, READ_SIZE);
-	if ((rt != READ_SIZE && rt != READ_SIZE - 1))
+	if (!rt)
 		return (0);
+	if ((rt != READ_SIZE && rt != READ_SIZE - 1))
+		return (-1);
 	if (str_tetri[rt - 1] == '\n')
 		str_tetri[rt - 1] = 0;
 	else
-		return (0);
+		return (-1);
 	if (!check_tetri(str_tetri))
-		return (0);
+		return (-1);
 	get_coord(str_tetri, tetri);
 	tetri->order = (char)(i + 'A');
 	set_max(tetri);
@@ -93,9 +95,15 @@ int		check_tetri(char *s)
 	if (s[i] || j > 4)
 		return (0);
 	j = 0;
-	while ((j != 6 || j != 8) && i)
-		if (s[i--] == '#')
-			s[i] == '#' || (i > 4 && s[i - 4]) ? j += 2 : 0;
-	s[i] == '#' || (i > 4 && s[i - 4]) ? j += 2 : 0;
+	while (i != -1)
+	{
+		if (s[i--] == '#' )
+		{
+			if (s[i] == '#')
+				j += 2;
+			if (i > 4 && s[i - 4] == '#')
+				j += 2;
+		}
+	}
 	return (j == 6 || j == 8 ? 1 : 0);
 }

@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/13 11:22:05 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/15 17:31:31 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int		get_next_pos(t_tetri *tetri, t_map *map)
 	int	x;
 
 	y = 0;
-	while (y < map->sz)
+	while (y + tetri->mx.y < map->sz)
 	{
 		x = 0;
-		while (x < map->sz)
+		while (x + tetri->mx.x < map->sz)
 		{
 			if (map->mp[y][x] == '.')
 			{
@@ -158,9 +158,11 @@ int		parse(t_tetri *tetri, int fd, int *i)
 	char	s[1];
 
 	*i = 0;
-	while ((j = read_load_tetri(fd,  tetri + *i, *i)) || !*i)
+	while (42)
 	{
-		if (j < 0)
+		if (!(j = read_load_tetri(fd,  tetri + *i, *i)))
+			break ;
+		else if (j != 1)
 			return (0);
 		++*i;
 	}
@@ -179,13 +181,13 @@ int	main(int argc, const char *argv[])
 	if (argc != 2)
 		return (free_msg_ret(NULL, 42, "Usage : fillit\t[FILE]"));
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
-		return (free_msg_ret(NULL, 42, "error : can't open file"));
+		return (free_msg_ret(NULL, 42, "error : can't open file."));
 	if (!(tetri = (t_tetri *)ft_memalloc(sizeof(t_tetri) * 26)))
 		return (free_msg_ret((void *)tetri, 42, "error: malloc failed."));
 	if (!parse(tetri, fd, &i))
 		return (free_msg_ret((void *)tetri, 42, "error"));
 	if (!(mp = solve(tetri, i, ft_sqrt((i + 1) * 4))))
-		return (free_msg_ret((void *)tetri, 42, "Can't solve."));
+		return (free_msg_ret((void *)tetri, 42, "error : solving failed."));
 	i = -1;
 	while (mp[++i])
 		ft_putendl(mp[i]);
