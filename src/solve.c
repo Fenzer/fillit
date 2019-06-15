@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 17:45:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/15 18:06:18 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/15 21:44:08 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int		get_next_pos(t_tetri *tetri, t_map *map)
 	int	x;
 
 	y = 0;
-	while (y + tetri->mx.y < map->sz)
+	while (y < map->sz)
 	{
 		x = 0;
-		while (x + tetri->mx.x < map->sz)
+		while (x < map->sz)
 		{
 			if (map->mp[y][x] == '.')
 			{
