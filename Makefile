@@ -6,7 +6,7 @@
 #    By: fepinson <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/15 18:30:42 by fepinson          #+#    #+#              #
-#    Updated: 2019/06/15 19:25:39 by fepinson         ###   ########.fr        #
+#    Updated: 2019/06/15 20:11:07 by fepinson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,16 @@ CFLAGS	+=	-Wall -Wextra -Werror -I$(INC_DIR)
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	 $(MAKE) -C $(LIB_DIR)
 	 $(CC) $(OBJS) -o $(NAME) $(LDFLAGS)
 
 clean:
-	$(RM) $(OBJS)
+	 $(MAKE) -C $(LIB_DIR) clean
+	 $(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	 $(MAKE) -C $(LIB_DIR) clean
+	 $(RM) $(NAME)
 
 re: fclean all
 

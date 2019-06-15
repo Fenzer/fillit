@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/15 18:33:46 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/15 20:09:33 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		parse(t_tetri *tetri, int fd, int *i)
 	*i = 0;
 	while (42)
 	{
-		if (!(j = read_load_tetri(fd,  tetri + *i, *i)))
+		if (!(j = read_load_tetri(fd, tetri + *i, *i)))
 			break ;
 		else if (j != 1)
 			return (0);
@@ -56,7 +56,7 @@ int		parse(t_tetri *tetri, int fd, int *i)
 	return (1);
 }
 
-int	main(int argc, const char *argv[])
+int		main(int argc, const char *argv[])
 {
 	t_tetri	*tetri;
 	char	**mp;
