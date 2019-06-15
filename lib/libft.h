@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:15:36 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/25 14:09:00 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/15 18:16:25 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-int					ft_get_next_line(const int fd, char **line);
+int					ft_free_msg_ret(void *p, char *s, int i);
+
+int					ft_rsqrt(int n);
+
+int					get_next_line(const int fd, char **line);
 
 int					ft_atoi_cbase(const char *str, char *base);
 
