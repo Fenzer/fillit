@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 21:26:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/15 20:05:19 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:45:42 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			normalize_coord(int min_y, int min_x, t_tetri *tetris);
 
 int				check_tetri(char *s);
 
-int				read_load_tetri(int fd, t_tetri *tetri, int i);
+int				read_load_tetri(int *fd, t_tetri *tetri, int i);
 
 void			get_coord(char *str, t_tetri *tetris);
 
@@ -60,5 +60,7 @@ char			**solve(t_tetri *tetri, int i, int sz);
 t_map			*init_map(int sz);
 
 void			set_point(t_pt *pt, int x, int y);
+
+int				parse(t_tetri *tetri, const char *p, int *i);
 
 #endif

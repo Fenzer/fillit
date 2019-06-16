@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/06/16 15:10:53 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:47:38 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,18 @@ void	get_coord(char *str, t_tetri *tetris)
 		tetris->coord[j++].y -= min_y;
 }
 
-int		read_load_tetri(int fd, t_tetri *tetri, int i)
+int		read_load_tetri(int *fd, t_tetri *tetri, int i)
 {
 	int			rt;
+	char		buf[READ_SIZE];
 	char		str_tetri[READ_SIZE];
 
-	rt = read(fd, str_tetri, READ_SIZE);
+	rt = read(fd[0], str_tetri, READ_SIZE);
+	read(fd[1], buf, READ_SIZE);
 	if (!rt)
-		return (0);
-	if ((rt != READ_SIZE && rt != READ_SIZE - 1))
+		return (i ? 0 : -1);
+	if ((rt != READ_SIZE && rt != READ_SIZE - 1) 
+			|| (rt == READ_SIZE && !read(fd[1], buf, 1)))
 		return (-1);
 	if (str_tetri[rt - 1] == '\n')
 		str_tetri[rt - 1] = 0;
