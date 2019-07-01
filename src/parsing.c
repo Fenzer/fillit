@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/06/16 19:47:38 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/07/01 23:10:40 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 void	set_max(t_tetri *tetri)
 {
-	int i;
+	int	i;
 
 	tetri->pt.x = 0;
 	tetri->pt.y = 0;
 	tetri->mx = tetri->coord[0];
+	tetri->mn = tetri->coord[0];
 	i = 4;
 	while (i--)
 	{
@@ -30,6 +31,25 @@ void	set_max(t_tetri *tetri)
 	}
 }
 
+char	**get_tetri(t_tetri *tetri)
+{
+	char	**s_tetri;
+	int		i;
+
+	if (!(s_tetri = (char **)ft_memalloc(tetri->mx.y + 1)))
+		return (NULL);
+	i = -1;
+	while (++i < tetri->mx.y)
+	{
+		if (!(s_tetri[i] = (char *)ft_memalloc(tetri->mx.x + 1)))
+			return (NULL);
+		ft_memset((void *)s_tetri[i], (int)'.', tetri->mx.x + 1);
+	}
+	i = -1;
+	while (++i < 4)
+		s_tetri[tetri->coord[i].y][tetri->coord[i].x] = '#';
+	return (s_tetri);
+}
 void	get_coord(char *str, t_tetri *tetris)
 {
 	int i;
@@ -81,6 +101,7 @@ int		read_load_tetri(int *fd, t_tetri *tetri, int i)
 	get_coord(str_tetri, tetri);
 	tetri->order = (char)(i + 'A');
 	set_max(tetri);
+	tetri->tetri = get_tetri(tetri);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 17:45:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/16 20:05:17 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/07/01 23:10:46 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ int		check_fit(t_tetri *tetri, t_map *map)
 			|| tetri->coord[j].y + tetri->pt.y > sz
 			|| map->mp[tetri->coord[j].y + tetri->pt.y]
 				[tetri->coord[j].x + tetri->pt.x] != '.')
-			return (0);
-	return (1);
+			break ;
+	if (j == 4)
+		return (1);
+	return (0);
 }
 
 t_map	*init_map(int sz)

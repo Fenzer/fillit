@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 21:26:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/16 19:45:42 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/07/01 23:10:44 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef	struct	s_map {
 typedef struct	s_tetri {
 	t_pt	pt;
 	t_pt	coord[4];
+	char	**tetri;
 	t_pt	mx;
+	t_pt	mn;
 	char	order;
 }				t_tetri;
 
@@ -62,5 +64,7 @@ t_map			*init_map(int sz);
 void			set_point(t_pt *pt, int x, int y);
 
 int				parse(t_tetri *tetri, const char *p, int *i);
+
+char			**get_tetri(t_tetri *tetri);
 
 #endif

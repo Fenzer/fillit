@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/16 19:47:06 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/07/01 23:10:47 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		parse(t_tetri * tetri, const char *p, int *i)
 	int		j;
 	char	s[1];
 
-	if ((fd[0] = open(p, O_RDONLY)) < 0 ||(fd[1] = open(p, O_RDONLY)) < 0)
+	if ((fd[0] = open(p, O_RDONLY)) < 0 || (fd[1] = open(p, O_RDONLY)) < 0)
 		return (0);
 	*i = 0;
 	while (42)
