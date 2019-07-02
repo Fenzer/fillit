@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 17:45:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/07/01 23:10:46 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/07/02 12:08:02 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		get_next_pos(t_tetri *tetri, t_map *map)
 
 int		solve_map(t_tetri *tetri, int i, t_map *map)
 {
-	if (get_next_pos(tetri, map))
+	while (get_next_pos(tetri, map))
 	{
 		place_tetri(tetri, map, 1);
 		if (!i)
@@ -64,19 +64,29 @@ int		solve_map(t_tetri *tetri, int i, t_map *map)
 int		check_fit(t_tetri *tetri, t_map *map)
 {
 	int	j;
-	int sz;
+	int	i;
+	/*int	sz;*/
 
 	j = -1;
-	sz = map->sz - 1;
-	while (++j < 4)
-		if (tetri->coord[j].x + tetri->pt.x > sz
-			|| tetri->coord[j].y + tetri->pt.y > sz
-			|| map->mp[tetri->coord[j].y + tetri->pt.y]
-				[tetri->coord[j].x + tetri->pt.x] != '.')
-			break ;
-	if (j == 4)
-		return (1);
-	return (0);
+   /* sz = map->sz - 1;*/
+	/*while (++j < 4)*/
+		/*if (tetri->coord[j].x + tetri->pt.x > sz*/
+			/*|| tetri->coord[j].y + tetri->pt.y > sz*/
+			/*|| map->mp[tetri->coord[j].y + tetri->pt.y]*/
+				/*[tetri->coord[j].x + tetri->pt.x] != '.')*/
+			/*break ;*/
+   /* if (j == 4)*/
+		/*return (1);*/
+	i = -1;
+	while (++i <= tetri->mx.y && (j = -1))
+	{
+		while (++j <= tetri->mx.x)
+			if (tetri->pt.y + i >= map->sz || tetri->pt.x + j >= map->sz 
+				|| (tetri->tetri[i][j] == '#'
+					&& map->mp[tetri->pt.y + i][tetri->pt.x + j] != '.'))
+				return (0);
+	}
+	return (1);
 }
 
 t_map	*init_map(int sz)
