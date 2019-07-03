@@ -6,20 +6,27 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 17:45:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/07/02 12:08:02 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/07/03 11:12:32 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	place_tetri(t_tetri *tetri, t_map *map, int mode)
+void		place_tetri(t_tetri *tetri, t_map *map, int mode)
 {
 	int i;
 
-	i = -1;
-	while (++i < 4)
-		mode ? map->mp[tetri->coord[i].y + tetri->pt.y]
-			[tetri->coord[i].x + tetri->pt.x] = tetri->order : '.';
+	i = 0;
+	while (i < 4)
+	{
+		if (mode)
+			map->mp[tetri->coord[i].y + tetri->pt.y]
+				[tetri->coord[i].x + tetri->pt.x] =  tetri->order;
+		else
+			map->mp[tetri->coord[i].y + tetri->pt.y]
+				[tetri->coord[i].x + tetri->pt.x] =  '.';
+		++i;
+	}
 }
 
 int		get_next_pos(t_tetri *tetri, t_map *map)
@@ -43,6 +50,7 @@ int		get_next_pos(t_tetri *tetri, t_map *map)
 		}
 		++y;
 	}
+	set_point(&tetri->pt, 0, 0);
 	return (0);
 }
 
