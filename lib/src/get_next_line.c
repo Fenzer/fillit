@@ -43,12 +43,12 @@ int		ft_split_line(char **line, char *s, char **rest)
 
 int		get_next_line(const int fd, char **line)
 {
-	static char		*rest[OPEN_MAX];
+	static char		*rest[FOPEN_MAX];
 	char			*buf;
 	char			*s;
 	int				rt;
 
-	if (fd < 0 || fd > OPEN_MAX || !line)
+	if (fd < 0 || fd > FOPEN_MAX || !line)
 		return (-1);
 	if (rest[fd] && ft_strchr(rest[fd], '\n'))
 		return (ft_split_line(line, rest[fd], &rest[fd]));

@@ -99,7 +99,6 @@ SRCS		=	$(SRC_DIR)/ft_bzero.c			\
 				$(SRC_DIR)/ft_free_msg_ret.c	\
 				$(SRC_DIR)/ft_rsqurt.c
 
-
 OBJS		=	$(SRCS:.c=.o)
 
 CFLAGS		=	-Wall -Wextra -Werror
