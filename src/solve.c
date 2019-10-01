@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 17:45:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/07/03 11:12:32 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:14:28 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void		place_tetri(t_tetri *tetri, t_map *map, int mode)
 	{
 		if (mode)
 			map->mp[tetri->coord[i].y + tetri->pt.y]
-				[tetri->coord[i].x + tetri->pt.x] =  tetri->order;
+				[tetri->coord[i].x + tetri->pt.x] = tetri->order;
 		else
 			map->mp[tetri->coord[i].y + tetri->pt.y]
-				[tetri->coord[i].x + tetri->pt.x] =  '.';
+				[tetri->coord[i].x + tetri->pt.x] = '.';
 		++i;
 	}
 }
@@ -35,10 +35,10 @@ int		get_next_pos(t_tetri *tetri, t_map *map)
 	int	x;
 
 	y = 0;
-	while (y < map->sz)
+	while (y < map->sz - tetri->mx.y)
 	{
 		x = 0;
-		while (x < map->sz)
+		while (x < map->sz - tetri->mx.x)
 		{
 			if (map->mp[y][x] == '.')
 			{
@@ -71,29 +71,20 @@ int		solve_map(t_tetri *tetri, int i, t_map *map)
 
 int		check_fit(t_tetri *tetri, t_map *map)
 {
-	int	j;
-	int	i;
-	/*int	sz;*/
+	int i;
+	int j;
+	int x;
+	int y;
 
-	j = -1;
-   /* sz = map->sz - 1;*/
-	/*while (++j < 4)*/
-		/*if (tetri->coord[j].x + tetri->pt.x > sz*/
-			/*|| tetri->coord[j].y + tetri->pt.y > sz*/
-			/*|| map->mp[tetri->coord[j].y + tetri->pt.y]*/
-				/*[tetri->coord[j].x + tetri->pt.x] != '.')*/
-			/*break ;*/
-   /* if (j == 4)*/
-		/*return (1);*/
 	i = -1;
-	while (++i <= tetri->mx.y && (j = -1))
-	{
-		while (++j <= tetri->mx.x)
-			if (tetri->pt.y + i >= map->sz || tetri->pt.x + j >= map->sz 
-				|| (tetri->tetri[i][j] == '#'
-					&& map->mp[tetri->pt.y + i][tetri->pt.x + j] != '.'))
+	j = -1;
+	y = tetri->pt.y;
+	x = tetri->pt.x;
+	while (++i < tetri->mx.y)
+		while (++j < tetri->mx.x)
+			if (tetri->tetri[i][j] == '#' && map->mp[y + i][x + j]
+					&& map->mp[y + i][x + j] != '.')
 				return (0);
-	}
 	return (1);
 }
 

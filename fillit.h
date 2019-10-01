@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 21:26:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/07/03 10:51:41 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:25:50 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ void			set_point(t_pt *pt, int x, int y);
 int				parse(t_tetri *tetri, const char *p, int *i);
 
 char			**get_tetri(t_tetri *tetri);
+
+int				try_tetri(t_tetri *tetri, t_map *map, int x, int y);
 
 #endif

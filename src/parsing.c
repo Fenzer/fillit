@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/07/02 12:08:10 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/01 15:49:44 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	**get_tetri(t_tetri *tetri)
 		s_tetri[tetri->coord[i].y][tetri->coord[i].x] = '#';
 	return (s_tetri);
 }
+
 void	get_coord(char *str, t_tetri *tetris)
 {
 	int i;
