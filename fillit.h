@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 21:26:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/10/01 16:25:50 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/02 22:53:46 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_tetri {
 
 int				check_tetri(char *s);
 
-int				check_fit(t_tetri *tetri, t_map *map);
+int				check_fit(t_tetri *tetri, t_map *map, int x, int y);
 
 void			normalize_coord(int min_y, int min_x, t_tetri *tetris);
 
@@ -50,8 +50,6 @@ void			get_coord(char *str, t_tetri *tetris);
 void			set_point(t_pt *pt, int x, int y);
 
 int				get_next_pos(t_tetri *tetri, t_map *map);
-
-int				check_fit(t_tetri *tetri, t_map *map);
 
 void			place_tetri(t_tetri *tetri, t_map *map, int mode);
 

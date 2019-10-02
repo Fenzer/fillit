@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 17:45:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/10/01 17:14:28 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/02 23:08:04 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,56 +29,63 @@ void		place_tetri(t_tetri *tetri, t_map *map, int mode)
 	}
 }
 
-int		get_next_pos(t_tetri *tetri, t_map *map)
+/*int		get_next_pos(t_tetri *tetri, t_map *map)*/
+/*{*/
+	/*int	y;*/
+	/*int	x;*/
+
+	/*y = 0;*/
+	/*while (y < map->sz - tetri->mx.y + 1)*/
+	/*{*/
+		/*x = 0;*/
+		/*while (x < map->sz - tetri->mx.x + 1)*/
+		/*{*/
+			/*if (map->mp[y][x] == '.')*/
+			/*{*/
+				/*set_point(&tetri->pt, x, y);*/
+				/*if (check_fit(tetri, map))*/
+					/*return (1);*/
+			/*}*/
+			/*++x;*/
+		/*}*/
+		/*++y;*/
+	/*}*/
+	/*set_point(&tetri->pt, 0, 0);*/
+	/*return (0);*/
+/*}*/
+
+int		solve_map(t_tetri *tetri, int i, t_map *map)
 {
 	int	y;
 	int	x;
 
-	y = 0;
-	while (y < map->sz - tetri->mx.y + 1)
+	y = -1;
+	while (++y < map->sz - tetri->mx.y + 1)
 	{
-		x = 0;
-		while (x < map->sz - tetri->mx.x + 1)
+		x = -1;
+		while (++x < map->sz - tetri->mx.x + 1)
 		{
-			if (map->mp[y][x] == '.')
+			if (map->mp[y][x] == '.' && check_fit(tetri, map, x, y))
 			{
-				set_point(&tetri->pt, x, y);
-				if (check_fit(tetri, map))
+				place_tetri(tetri, map, 1);
+				if (!i)
 					return (1);
+				else if (solve_map(tetri + 1, i - 1, map))
+					return (1);
+				else
+					place_tetri(tetri, map, 0);
 			}
-			++x;
 		}
-		++y;
-	}
-	set_point(&tetri->pt, 0, 0);
-	return (0);
-}
-
-int		solve_map(t_tetri *tetri, int i, t_map *map)
-{
-	while (get_next_pos(tetri, map))
-	{
-		place_tetri(tetri, map, 1);
-		if (!i)
-			return (1);
-		else if (solve_map(++tetri, --i, map))
-			return (1);
-		else
-			place_tetri(tetri, map, 0);
 	}
 	return (0);
 }
 
-int		check_fit(t_tetri *tetri, t_map *map)
+int		check_fit(t_tetri *tetri, t_map *map, int x, int y)
 {
 	int i;
 	int j;
-	int x;
-	int y;
 
 	i = -1;
-	y = tetri->pt.y;
-	x = tetri->pt.x;
 	while (++i < tetri->mx.y && y + i < map->sz)
 	{
 		j = -1;
@@ -86,6 +93,7 @@ int		check_fit(t_tetri *tetri, t_map *map)
 			if (tetri->tetri[i][j] == '#' && map->mp[y + i][x + j] != '.')
 				return (0);
 	}
+	set_point(&tetri->pt, x, y);
 	return (1);
 }
 
