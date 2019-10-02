@@ -35,10 +35,10 @@ int		get_next_pos(t_tetri *tetri, t_map *map)
 	int	x;
 
 	y = 0;
-	while (y < map->sz - tetri->mx.y)
+	while (y < map->sz - tetri->mx.y + 1)
 	{
 		x = 0;
-		while (x < map->sz - tetri->mx.x)
+		while (x < map->sz - tetri->mx.x + 1)
 		{
 			if (map->mp[y][x] == '.')
 			{
@@ -77,14 +77,15 @@ int		check_fit(t_tetri *tetri, t_map *map)
 	int y;
 
 	i = -1;
-	j = -1;
 	y = tetri->pt.y;
 	x = tetri->pt.x;
-	while (++i < tetri->mx.y)
-		while (++j < tetri->mx.x)
-			if (tetri->tetri[i][j] == '#' && map->mp[y + i][x + j]
-					&& map->mp[y + i][x + j] != '.')
+	while (++i < tetri->mx.y && y + i < map->sz)
+	{
+		j = -1;
+		while (++j < tetri->mx.x && y + j < map->sz)
+			if (tetri->tetri[i][j] == '#' && map->mp[y + i][x + j] != '.')
 				return (0);
+	}
 	return (1);
 }
 

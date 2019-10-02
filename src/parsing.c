@@ -29,6 +29,8 @@ void	set_max(t_tetri *tetri)
 		if (tetri->coord[i].y > tetri->mx.y)
 			tetri->mx.y = tetri->coord[i].y;
 	}
+	++tetri->mx.x;
+	++tetri->mx.y;
 }
 
 char	**get_tetri(t_tetri *tetri)
