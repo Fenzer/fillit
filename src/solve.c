@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 17:45:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/10/02 23:08:04 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/03 00:06:03 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ int		check_fit(t_tetri *tetri, t_map *map, int x, int y)
 	int j;
 
 	i = -1;
-	while (++i < tetri->mx.y && y + i < map->sz)
+	while (++i < tetri->mx.y)
 	{
 		j = -1;
-		while (++j < tetri->mx.x && y + j < map->sz)
+		while (++j < tetri->mx.x)
 			if (tetri->tetri[i][j] == '#' && map->mp[y + i][x + j] != '.')
 				return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/10/01 15:49:44 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/03 00:06:01 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ char	**get_tetri(t_tetri *tetri)
 	while (++i < tetri->mx.y + 1)
 	{
 		if (!(s_tetri[i]
-					= (char *)ft_memalloc((tetri->mx.x + 2) * sizeof(char *))))
+					= (char *)ft_memalloc((tetri->mx.x + 1) * sizeof(char *))))
 			return (NULL);
-		ft_memset((void *)s_tetri[i], (int)'.', tetri->mx.x + 1);
+		ft_memset((void *)s_tetri[i], (int)'.', tetri->mx.x);
 	}
 	i = -1;
 	while (++i < 4)
