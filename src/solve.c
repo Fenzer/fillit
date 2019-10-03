@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 17:45:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/10/03 00:06:03 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/03 11:56:33 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		solve_map(t_tetri *tetri, int i, t_map *map)
 		x = -1;
 		while (++x < map->sz - tetri->mx.x + 1)
 		{
-			if (map->mp[y][x] == '.' && check_fit(tetri, map, x, y))
+			if (check_fit(tetri, map, x, y))
 			{
 				place_tetri(tetri, map, 1);
 				if (!i)
@@ -90,8 +90,10 @@ int		check_fit(t_tetri *tetri, t_map *map, int x, int y)
 	{
 		j = -1;
 		while (++j < tetri->mx.x)
+		{
 			if (tetri->tetri[i][j] == '#' && map->mp[y + i][x + j] != '.')
 				return (0);
+		}
 	}
 	set_point(&tetri->pt, x, y);
 	return (1);
