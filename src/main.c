@@ -6,19 +6,19 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/07/02 12:08:11 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/03 12:07:59 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fillit.h"
 
-void	set_point(t_pt *pt, int x, int y)
+void		set_point(t_pt *pt, int x, int y)
 {
 	pt->x = x;
 	pt->y = y;
 }
 
-char	**solve(t_tetri *tetri, int i, int sz)
+char		**solve(t_tetri *tetri, int i, int sz)
 {
 	t_map	*map;
 	char	**mp;
@@ -37,13 +37,14 @@ char	**solve(t_tetri *tetri, int i, int sz)
 	return (mp);
 }
 
-int		parse(t_tetri * tetri, const char *p, int *i)
+int			parse(t_tetri *tetri, const char *p, int *i)
 {
 	int		fd[2];
 	int		j;
 	char	s[1];
 
-	if ((fd[0] = open(p, O_RDONLY)) < 0 || (fd[1] = open(p, O_RDONLY)) < 0)
+	if ((fd[0] = open(p, O_RDONLY)) < 0
+			|| (fd[1] = open(p, O_RDONLY)) < 0)
 		return (0);
 	*i = 0;
 	while (42)
@@ -61,11 +62,11 @@ int		parse(t_tetri * tetri, const char *p, int *i)
 	return (1);
 }
 
-int		main(int argc, const char *argv[])
+int			main(int argc, const char *argv[])
 {
-	t_tetri	*tetri;
-	char	**mp;
-	int		i;
+	t_tetri		*tetri;
+	char		**mp;
+	int			i;
 
 	if (argc != 2)
 		return (ft_free_msg_ret(NULL, "Usage : fillit\t[FILE]", 42));

@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/10/03 00:06:01 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/03 12:03:00 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ char	**get_tetri(t_tetri *tetri)
 	i = -1;
 	while (++i < tetri->mx.y + 1)
 	{
-		if (!(s_tetri[i]
-					= (char *)ft_memalloc((tetri->mx.x + 1) * sizeof(char *))))
+		if (!(s_tetri[i] = (char *)
+					ft_memalloc((tetri->mx.x + 1) * sizeof(char *))))
 			return (NULL);
 		ft_memset((void *)s_tetri[i], (int)'.', tetri->mx.x);
 	}
@@ -93,7 +93,7 @@ int		read_load_tetri(int *fd, t_tetri *tetri, int i)
 	read(fd[1], buf, READ_SIZE);
 	if (!rt)
 		return (i ? 0 : -1);
-	if ((rt != READ_SIZE && rt != READ_SIZE - 1) 
+	if ((rt != READ_SIZE && rt != READ_SIZE - 1)
 			|| (rt == READ_SIZE && !read(fd[1], buf, 1)))
 		return (-1);
 	if (str_tetri[rt - 1] == '\n')

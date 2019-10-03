@@ -6,7 +6,7 @@
 #    By: fepinson <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/15 18:30:42 by fepinson          #+#    #+#              #
-#    Updated: 2019/06/15 20:33:36 by fepinson         ###   ########.fr        #
+#    Updated: 2019/10/03 12:09:44 by fepinson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJS	=	$(SRCS:.c=.o)
 
 LDFLAGS	=	-I$(SRC_DIR) -L$(LIB_DIR) -lft
 
-CFLAGS	+=	-Wall -Wextra -Werror -I$(INC_DIR) -g3
+CFLAGS	+=	-Wall -Wextra -Werror -I$(INC_DIR)
 
 all: $(NAME)
 
