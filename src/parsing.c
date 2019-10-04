@@ -6,7 +6,7 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/10/03 12:03:00 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/04 09:00:02 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	set_max(t_tetri *tetri)
 	tetri->pt.x = 0;
 	tetri->pt.y = 0;
 	tetri->mx = tetri->coord[0];
-	tetri->mn = tetri->coord[0];
 	i = 4;
 	while (i--)
 	{

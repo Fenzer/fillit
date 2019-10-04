@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 21:26:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/10/02 22:53:46 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/04 08:58:22 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct	s_tetri {
 	t_pt	coord[4];
 	char	**tetri;
 	t_pt	mx;
-	t_pt	mn;
 	char	order;
 }				t_tetri;
 
