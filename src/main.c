@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/10/03 12:07:59 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/08 12:02:01 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ int			parse(t_tetri *tetri, const char *p, int *i)
 	return (1);
 }
 
+void		free_tetri(void *tetri_ptr)
+{
+	t_tetri	*tetri;
+	int		i;
+
+	i = -1;
+	tetri = (t_tetri *)tetri_ptr;
+	while (tetri[++i].tetri)
+		ft_freetab(tetri[i].tetri);
+	free(tetri_ptr);
+}
+
 int			main(int argc, const char *argv[])
 {
 	t_tetri		*tetri;
@@ -69,16 +81,16 @@ int			main(int argc, const char *argv[])
 	int			i;
 
 	if (argc != 2)
-		return (ft_free_msg_ret(NULL, "Usage : fillit\t[FILE]", 42));
+		return (ft_free(NULL, "usage : fillit\t[FILE]", 42, NULL));
 	if (!(tetri = (t_tetri *)ft_memalloc(sizeof(t_tetri) * 26)))
-		return (ft_free_msg_ret((void *)tetri, "error: malloc failed.", 42));
+		return (ft_free((void *)tetri, "error: malloc failed.", 42, NULL));
 	if (!parse(tetri, argv[1], &i))
-		return (ft_free_msg_ret((void *)tetri, "error", 42));
+		return (ft_free((void *)tetri, "error", 42, NULL));
 	if (!(mp = solve(tetri, i, ft_rsqrt((i + 1) * 4))))
-		return (ft_free_msg_ret((void *)tetri, "error : solving failed.", 42));
+		return (ft_free((void *)tetri, "error : solving failed.", 42, NULL));
 	i = -1;
 	while (mp[++i])
 		ft_putendl(mp[i]);
 	ft_freetab(mp);
-	return (ft_free_msg_ret((void *)tetri, NULL, 0));
+	return (ft_free((void *)tetri, NULL, 0, free_tetri));
 }
