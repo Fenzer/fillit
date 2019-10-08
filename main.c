@@ -6,11 +6,11 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/10/08 12:02:01 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/08 23:40:19 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fillit.h"
+#include "fillit.h"
 
 void		set_point(t_pt *pt, int x, int y)
 {

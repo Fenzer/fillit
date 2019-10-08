@@ -6,7 +6,7 @@
 #    By: fepinson <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/15 18:30:42 by fepinson          #+#    #+#              #
-#    Updated: 2019/10/08 12:00:30 by fepinson         ###   ########.fr        #
+#    Updated: 2019/10/08 23:39:52 by fepinson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INC_DIR	=	$(realpath .)
 
 LIB_DIR	=	$(realpath ./lib)
 
-SRC_DIR	=	$(realpath ./src)
+SRC_DIR	=	$(realpath .)
 
 SRCS	=	$(SRC_DIR)/main.c		\
 			$(SRC_DIR)/parsing.c	\

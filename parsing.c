@@ -6,12 +6,11 @@
 /*   By: liferrer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:43:46 by liferrer          #+#    #+#             */
-/*   Updated: 2019/10/04 09:00:02 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/08 23:40:33 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include "../fillit.h"
+#include "fillit.h"
 
 void	set_max(t_tetri *tetri)
 {
