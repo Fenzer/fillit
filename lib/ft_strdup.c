@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memset.c                                           :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fepinson <pinsonfen@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:16:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/04 18:42:41 by fepinson         ###   ########.fr       */
+/*   Created: 2018/08/29 10:09:24 by fepinson          #+#    #+#             */
+/*   Updated: 2019/10/11 17:51:28 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char *s, char (*f)(unsigned int, char))
+char	*ft_strdup(char *str)
 {
-	char		*r;
-	int			i;
+	char	*s;
+	int		i;
 
-	i = -1;
-	r = NULL;
-	if (s && (r = (char *)
-				malloc(sizeof(char) * (ft_strlen(s) + 1))))
+	i = 0;
+	if ((s = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))))
 	{
-		while (s[++i])
-			r[i] = f((unsigned int)i, s[i]);
-		r[i] = 0;
+		while (str && str[i])
+		{
+			s[i] = str[i];
+			++i;
+		}
+		s[i] = 0;
 	}
-	return (r);
+	return (s);
 }

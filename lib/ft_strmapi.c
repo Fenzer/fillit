@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   memset.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fepinson <pinsonfen@gmail.com>             +#+  +:+       +#+        */
+/*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/28 18:48:22 by fepinson          #+#    #+#             */
-/*   Updated: 2018/12/05 16:55:41 by fepinson         ###   ########.fr       */
+/*   Created: 2018/11/09 19:16:55 by fepinson          #+#    #+#             */
+/*   Updated: 2019/10/11 17:52:31 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-char	*ft_strcat(char *s1, char *s2)
+char	*ft_strmapi(char *s, char (*f)(unsigned int, char))
 {
-	int i;
-	int j;
+	char		*r;
+	int			i;
 
-	i = 0;
-	j = 0;
-	while (s1[i])
-		++i;
-	while (s2[j])
-		s1[i++] = s2[j++];
-	s1[i] = 0;
-	return (s1);
+	i = -1;
+	r = NULL;
+	if (s
+		&& (r = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1))))
+	{
+		while (s[++i])
+			r[i] = f((unsigned int)i, s[i]);
+		r[i] = 0;
+	}
+	return (r);
 }

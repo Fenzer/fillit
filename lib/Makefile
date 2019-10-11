@@ -6,17 +6,17 @@
 #    By: fepinson <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/12 18:43:04 by fepinson          #+#    #+#              #
-#    Updated: 2019/10/08 12:00:08 by fepinson         ###   ########.fr        #
+#    Updated: 2019/10/11 17:51:15 by fepinson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC_DIR		=	$(realpath .)/src
+SRC_DIR		=	$(realpath .)
 
 INC_DIR		=	$(realpath .)
 
 NAME		=	libft.a
 
-CC			=	 gcc
+CC			=	gcc
 
 RM			=	rm -f
 

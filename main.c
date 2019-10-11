@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:54:51 by fepinson          #+#    #+#             */
-/*   Updated: 2019/10/08 23:40:19 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/10/11 17:41:12 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		free_tetri(void *tetri_ptr)
 	free(tetri_ptr);
 }
 
-int			main(int argc, const char *argv[])
+int			main(int argc, char **argv)
 {
 	t_tetri		*tetri;
 	char		**mp;

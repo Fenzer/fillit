@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <pinsonfen@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/29 10:09:24 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/04 16:17:01 by fepinson         ###   ########.fr       */
+/*   Created: 2018/08/28 18:48:22 by fepinson          #+#    #+#             */
+/*   Updated: 2019/10/11 17:51:23 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-char	*ft_strdup(char *str)
+char	*ft_strcat(char *s1, char *s2)
 {
-	char	*s;
-	int		i;
+	int i;
+	int j;
 
 	i = 0;
-	if ((s = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))))
-	{
-		while (str && str[i])
-		{
-			s[i] = str[i];
-			++i;
-		}
-		s[i] = 0;
-	}
-	return (s);
+	j = 0;
+	while (s1[i])
+		++i;
+	while (s2[j])
+		s1[i++] = s2[j++];
+	s1[i] = 0;
+	return (s1);
 }
